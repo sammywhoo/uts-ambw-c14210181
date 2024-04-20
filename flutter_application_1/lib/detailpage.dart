@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/bookmarkpage.dart';
+import 'package:flutter_application_1/discoverypage.dart';
+import 'package:flutter_application_1/profilepage.dart';
+import 'package:flutter_application_1/topfoodiepage.dart';
 import 'InformationBox.dart';
 import 'homepage.dart';
 
@@ -82,8 +86,45 @@ class DetailPage extends StatelessWidget {
             ),
           ],
           //menunjukkan ada di posisi menu mana (biru-biru)
+          currentIndex: indexNow,
           onTap: (int index) {
-            
+            if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiscoveryPage(
+                    barIndex: index,
+                  ),
+                ),
+              );
+            } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookmarkPage(
+                    barIndex: index,
+                  ),
+                ),
+              );
+            } else if (index == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TopFoodiePage(
+                    barIndex: index,
+                  ),
+                ),
+              );
+            } else if (index == 4) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilePage(
+                    barIndex: index,
+                  ),
+                ),
+              );
+            }
           },
         ),
       ),

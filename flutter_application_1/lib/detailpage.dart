@@ -7,7 +7,6 @@ import 'InformationBox.dart';
 import 'homepage.dart';
 
 class DetailPage extends StatelessWidget {
-
   final String pageTitle;
   final List data;
 
@@ -33,28 +32,31 @@ class DetailPage extends StatelessWidget {
               );
             },),
           title: Center(
-            child: Text(
-              pageTitle,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            )
+              child: Text(
+                pageTitle,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              )
           ),
         ),
-        body: Center(
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: data.length * 300,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(8.0),
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      return InfoBox(imageLink: data[index][0], restaurantName: data[index][1], 
-                      restaurantAddress: data[index][2], restaurantStyle: data[index][3],);
-                    },
-                  ),
+                ListView.builder(
+                  padding: const EdgeInsets.all(8.0),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return InfoBox(
+                      imageLink: data[index][0],
+                      restaurantName: data[index][1],
+                      restaurantAddress: data[index][2],
+                      restaurantStyle: data[index][3],
+                    );
+                  },
                 ),
               ],
             ),
@@ -88,7 +90,15 @@ class DetailPage extends StatelessWidget {
           //menunjukkan ada di posisi menu mana (biru-biru)
           currentIndex: indexNow,
           onTap: (int index) {
-            if (index == 1) {
+            if (index == 0){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
+            }
+            else if (index == 1) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -131,4 +141,3 @@ class DetailPage extends StatelessWidget {
     );
   }
 }
-

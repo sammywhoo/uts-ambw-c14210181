@@ -5,6 +5,7 @@ import 'package:flutter_application_1/discoverypage.dart';
 import 'package:flutter_application_1/profilepage.dart';
 import 'package:flutter_application_1/topfoodiepage.dart';
 import 'InformationCard.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 bool home = true;
 bool popular = false;
@@ -12,17 +13,63 @@ bool deals = false;
 
 class HomePage extends StatelessWidget {
   final List _mostPopular = [
-    ['lib/images/indonesianFood2.jpg', 'Rumah Rendang', 'AB Street - 2', 'Traditional Indonesian'],
-    ['lib/images/arabicFood.jpg', 'Ciken Chicken', 'DC Street - 1', 'Rice, Arabic'],
-    ['lib/images/japaneseFood1.jpg', 'Itadakimas', 'BB Street - 5', 'Traditional Japanese'],
-    ['lib/images/westernFood2.jpeg', 'Burger Shack', 'BG Street - 12', 'Burger, Western'],
+    [
+      'lib/images/indonesianFood2.jpg',
+      'Rumah Rendang',
+      'AB Street - 2',
+      'Traditional Indonesian'
+    ],
+    [
+      'lib/images/arabicFood.jpg',
+      'Ciken Chicken',
+      'DC Street - 1',
+      'Rice, Arabic'
+    ],
+    [
+      'lib/images/japaneseFood1.jpg',
+      'Itadakimas',
+      'BB Street - 5',
+      'Traditional Japanese'
+    ],
+    [
+      'lib/images/westernFood2.jpeg',
+      'Burger Shack',
+      'BG Street - 12',
+      'Burger, Western'
+    ],
   ];
 
   final List _mealDeals = [
-    ['lib/images/koreanFood2.jpg', 'Snack Korea', 'K Street - 1', 'Street Food, Korean'],
-    ['lib/images/japaneseFood2.jpg', 'Nippon Food', 'K Street - 13', 'Sushi, Japanese'],
-    ['lib/images/italianFood.jpg', 'Le Delicious', 'FD Street - 6', 'Pasta, Italian'],
-    ['lib/images/koreanFood1.jpg', 'KorMeal', 'K Street - 8', 'Home Meals, Korean'],
+    [
+      'lib/images/koreanFood2.jpg',
+      'Snack Korea',
+      'K Street - 1',
+      'Street Food, Korean'
+    ],
+    [
+      'lib/images/japaneseFood2.jpg',
+      'Nippon Food',
+      'K Street - 13',
+      'Sushi, Japanese'
+    ],
+    [
+      'lib/images/italianFood.jpg',
+      'Le Delicious',
+      'FD Street - 6',
+      'Pasta, Italian'
+    ],
+    [
+      'lib/images/koreanFood1.jpg',
+      'KorMeal',
+      'K Street - 8',
+      'Home Meals, Korean'
+    ],
+  ];
+
+  final List _caraouselItem = [
+    ['lib/images/indonesianFood1.jpg', 'Indonesian Style', '15 Places'],
+    ['lib/images/indianFood.jpg', 'Indian Style', '12 Places'],
+    ['lib/images/thaiFood.jpg', 'Thai Style', '14 Places'],
   ];
 
   HomePage({super.key});
@@ -72,81 +119,78 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: 250,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('lib/images/indonesianFood1.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 250.0,
+                    enlargeCenterPage: true,
+                    autoPlay: true,
+                    aspectRatio: 16 / 9,
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enableInfiniteScroll: true,
+                    autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                    viewportFraction: 0.8,
                   ),
-                  child: Stack(
-                    children: [
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
+                  items: List.generate(_caraouselItem.length, (index) {
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(_caraouselItem[index][0]),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: Stack(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 20, bottom: 5),
-                            child: Text(
-                              'Indonesian Restaurants',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20.0,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20, bottom: 5),
+                                child: Text(
+                                  _caraouselItem[index][1],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20.0,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20, bottom: 10),
+                                child: Text(
+                                  _caraouselItem[index][2],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 20, bottom: 10),
-                            child: Text(
-                              '15 Places',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15.0,
-                              ),
+                          Positioned(
+                            bottom: 10,
+                            right: 10,
+                            child: Row(
+                              children: List.generate(3, (i) {
+                                return Container(
+                                  margin: const EdgeInsets.only(right: 5),
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color:
+                                        i == index ? Colors.white : Colors.grey,
+                                  ),
+                                );
+                              }),
                             ),
                           ),
                         ],
                       ),
-                      Positioned(
-                        bottom: 10,
-                        right: 10,
-                        child: Row(
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(right: 5),
-                              height: 10,
-                              width: 10,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(right: 5),
-                              height: 10,
-                              width: 10,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(right: 5),
-                              height: 10,
-                              width: 10,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  }),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),
